@@ -27,8 +27,7 @@ namespace PokemonReviewApp.Controllers
         public IActionResult GetCatogories() 
         {
             var catogories = mapper.Map<List<CategoryDto>>(categoryRespository.GetCategories());
-            if (!ModelState.IsValid)
-                return BadRequest(ModelState);
+           
 
             return Ok(catogories);
         }
