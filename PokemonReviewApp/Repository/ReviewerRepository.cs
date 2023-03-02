@@ -20,10 +20,10 @@ namespace PokemonReviewApp.Repository
 
         public ICollection<Reviewer> GetReviewers()
         {
-            return context.Reviewers.OrderBy(r => r.Id).ToList();
+            return context.Reviewers.ToList();
         }
 
-        public ICollection<Review> GetReviewersByReviewer(int reviewerId)
+        public ICollection<Review> GetReviewsByReviewer(int reviewerId)
         {
             return context.Reviews.Where(r => r.Reviewer.Id == reviewerId).ToList();
         }

@@ -16,14 +16,14 @@ namespace PokemonReviewApp.Controllers
         private readonly IMapper mapper;
         public ReviewController(IReviewRepository reviewRepository , IMapper mapper) 
         { 
-           this .reviewRepository = reviewRepository;
-            this .mapper = mapper;
+           this.reviewRepository = reviewRepository;
+            this.mapper = mapper;
         }
 
         [HttpGet]
         [ProducesResponseType(200, Type = typeof(IEnumerable<Review>))]
         [ProducesResponseType(400)]
-        public IActionResult GetCountries()
+        public IActionResult GetReviews()
         {
             var reviews = mapper.Map<List<ReviewDto>>(reviewRepository.GetReviews());
 

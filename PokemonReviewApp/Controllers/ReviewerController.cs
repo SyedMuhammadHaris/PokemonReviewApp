@@ -22,9 +22,13 @@ namespace PokemonReviewApp.Controllers
         [HttpGet]
         [ProducesResponseType(200, Type = typeof(IEnumerable<Reviewer>))]
         [ProducesResponseType(400)]
-        public IActionResult GetReviewrs()
+        public IActionResult GetReviewers()
         {
-            var reviewers = mapper.Map<List<ReviewerDto>>(reviewerRepository.GetReviewers());
+            //var reviewers = mapper.Map<List<ReviewerDto>>(reviewerRepository.GetReviewers());
+            var reviewers = reviewerRepository.GetReviewers();
+
+            if (!ModelState.IsValid)
+                return BadRequest(ModelState);
 
 
             return Ok(reviewers);
@@ -40,7 +44,7 @@ namespace PokemonReviewApp.Controllers
                 return NotFound();
             }
 
-            var reviewer = mapper.Map<ReviewerDto>(reviewerRepository.GetReviewer(reviewerId)); ;
+            var reviewer = mapper.Map<ReviewerDto>(reviewerRepository.GetReviewer(reviewerId));
 
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
@@ -51,14 +55,14 @@ namespace PokemonReviewApp.Controllers
         [HttpGet("{reviewerId}/reviews")]
         [ProducesResponseType(200, Type = typeof(Reviewer))]
         [ProducesResponseType(400)]
-        public IActionResult GetReviewersByReviewer(int reviewerId)
+        public IActionResult GetReviewsByReviewer(int reviewerId)
         {
             if (!reviewerRepository.ReviewerExists(reviewerId))
             {
                 return NotFound();
             }
             var reviewsByReviewer = mapper.Map<List<ReviewDto>>(
-                reviewerRepository.GetReviewersByReviewer(reviewerId));
+                reviewerRepository.GetReviewsByReviewer(reviewerId));
 
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
